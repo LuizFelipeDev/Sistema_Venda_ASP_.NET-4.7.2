@@ -1,0 +1,65 @@
+﻿@model IEnumerable<TrabBimestral.MODEL.Cliente>
+
+@{
+    ViewBag.Title = "Clientes";
+}
+
+<h2>Cliente</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create")
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Cli_Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cli_Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Cli_CPF)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cli_Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cli_Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cli_CPF)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Cli_ID }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Cli_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Cli_ID }, new { @class = "excluir" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+        })
+        $(".excluir").click(function () {
+
+            var apagar = confirm("Deseja realmente excluir este registro ?");
+            if (apagar) {
+                // aqui vai a instrução para apagar registro
+
+            } else {
+                event.preventDefault();
+            }
+        });
+    </script>
+}

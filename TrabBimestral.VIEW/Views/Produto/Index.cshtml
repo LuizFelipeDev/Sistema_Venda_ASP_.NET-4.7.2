@@ -1,0 +1,96 @@
+﻿@model IEnumerable<TrabBimestral.MODEL.Produto>
+
+@{
+    ViewBag.Title = "Produtos";
+}
+
+<h2>Produtos</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create")
+</p>
+
+<div class="form-group">
+    <div class="col-md-3">
+        <input class="form-control text-box single-line" placeholder="Info..." id="Info" />
+    </div>
+
+    <div class="col-md-2">
+        <select class="form-control" id="Opcao">
+            <option></option>
+            <option value="Produto">Produto</option>
+            <option value="Categoria">Categoria</option>
+            <option value="Fornecedor">Fornecedor</option>
+        </select>
+    </div>
+
+    <button class="btn btn-success" id="Pesquisar">Pesquisar</button>
+</div>
+
+
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Pro_Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Pro_Preco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria.Cat_Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Fornecedor.For_Nome)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pro_Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pro_Preco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria.Cat_Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fornecedor.For_Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.Pro_ID }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.Pro_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Pro_ID }, new { @class = "excluir" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+        $(document).ready(function () {         
+        })
+        $(".excluir").click(function () {
+
+            var apagar = confirm("Deseja realmente excluir este registro ?");
+            if (apagar) {
+            } else {
+                event.preventDefault();
+            }
+        });
+
+        $("#Pesquisar").click(function () {
+            var info = $("#Info").val();
+            var tipo = $("#Opcao").val();
+            window.location.href = "/TrabBimestral.VIEW/Produto/Index?info=" + info + "&tipo=" + tipo;
+        })
+    </script>
+}

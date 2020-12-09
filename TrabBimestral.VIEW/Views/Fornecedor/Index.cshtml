@@ -1,0 +1,53 @@
+﻿@model IEnumerable<TrabBimestral.MODEL.Fornecedor>
+
+@{
+    ViewBag.Title = "Fornecedores";
+}
+
+<h2>Fornecedores</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create")
+</p>
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.For_Nome)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.For_Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Edit", new { id = item.For_ID }) |
+                @Html.ActionLink("Detalhes", "Details", new { id = item.For_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.For_ID }, new { @class = "excluir" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+
+        })
+        $(".excluir").click(function () {
+
+            var apagar = confirm("Deseja realmente excluir este registro ?");
+            if (apagar) {
+                // aqui vai a instrução para apagar registro
+
+            } else {
+                event.preventDefault();
+            }
+        });
+    </script>
+}

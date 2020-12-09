@@ -1,0 +1,122 @@
+﻿@model IEnumerable<TrabBimestral.MODEL.Venda>
+
+@{
+    ViewBag.Title = "Vendas";
+}
+
+<h2>Vendas</h2>
+
+<p>
+    @Html.ActionLink("Novo", "Create")
+</p>
+
+<div class="form-group">
+    <div class="col-md-3" id="txtInfo">
+        <input class="form-control text-box single-line" placeholder="Info..." id="Info" />
+    </div>
+
+    <div class="col-md-2" id="selectVenda">
+        <select class="form-control" id="OpcaoVenda">
+            <option></option>
+            <option value="true">Venda Aberta</option>
+            <option value="false">Venda Fechada</option>
+        </select>
+    </div>
+
+    <div class="col-md-3">
+        <select class="form-control" id="Opcao">
+            <option></option>
+            <option value="Data">Data</option>
+            <option value="VendaFechada">Situação da Venda</option>
+            <option value="NomeCliente">Nome do Cliente</option>
+        </select>
+    </div>
+
+    <button class="btn btn-success" id="Pesquisar">Pesquisar</button>
+</div>
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Ven_Data)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ven_Fechada)
+        </th>
+        <th>
+            Nome Cliente
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Ven_Data.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ven_Fechada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Cli_Nome)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Ven_ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Ven_ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Ven_ID }, new { @class = "excluir" })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+
+    <script>
+        $(document).ready(function () {
+            $("#selectVenda").hide();
+        })
+        $(".excluir").click(function () {
+
+            var apagar = confirm("Deseja realmente excluir este registro ?");
+            if (apagar) {
+                // aqui vai a instrução para apagar registro
+
+            } else {
+                event.preventDefault();
+            }
+        });
+
+        $("#Pesquisar").click(function () {
+            var info = $("#Info").val();
+            var tipo = $("#Opcao").val();
+            var tipoVenda = $("#OpcaoVenda").val();
+
+            if (tipo == "VendaFechada") {
+                pesquisa(tipoVenda, tipo);
+            } else {
+                pesquisa(info, tipo);
+            }
+        })
+
+        function pesquisa(info, tipo) {
+            window.location.href = "/TrabBimestral.VIEW/Venda/Index?info=" + info + "&tipo=" + tipo;
+        }
+
+        $("#Opcao").change(function () {
+            if ($("#Opcao").val() == "VendaFechada") {
+                $("#selectVenda").show();
+                $("#txtInfo").hide();
+            } else {
+                $("#selectVenda").hide();
+                $("#txtInfo").show();
+            }
+        })
+    </script>
+}

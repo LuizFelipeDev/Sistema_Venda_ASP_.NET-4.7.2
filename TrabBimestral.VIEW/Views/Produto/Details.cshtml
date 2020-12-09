@@ -1,0 +1,50 @@
+﻿@model TrabBimestral.MODEL.Produto
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Produto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Pro_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pro_Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Pro_Preco)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pro_Preco)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Categoria.Cat_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Categoria.Cat_Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fornecedor.For_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fornecedor.For_Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Pro_ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

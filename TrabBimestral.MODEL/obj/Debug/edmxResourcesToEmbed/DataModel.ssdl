@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LojaProdutosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="Cat_ID" />
+    </Key>
+    <Property Name="Cat_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cat_Nome" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Cli_ID" />
+    </Key>
+    <Property Name="Cli_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Cli_Nome" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cli_Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Cli_CPF" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Fornecedor">
+    <Key>
+      <PropertyRef Name="For_ID" />
+    </Key>
+    <Property Name="For_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="For_Nome" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Produto">
+    <Key>
+      <PropertyRef Name="Pro_ID" />
+    </Key>
+    <Property Name="Pro_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Pro_Nome" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Pro_Categoria" Type="int" Nullable="false" />
+    <Property Name="Pro_Fornecedor" Type="int" Nullable="false" />
+    <Property Name="Pro_Preco" Type="money" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Usu_ID" />
+    </Key>
+    <Property Name="Usu_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Usu_Email" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Usu_Senha" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Usu_Admin" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Venda">
+    <Key>
+      <PropertyRef Name="Ven_ID" />
+    </Key>
+    <Property Name="Ven_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Cli" Type="int" Nullable="false" />
+    <Property Name="Ven_Data" Type="date" Nullable="false" />
+    <Property Name="Ven_Fechada" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="VendaProduto">
+    <Key>
+      <PropertyRef Name="VeP_ID" />
+    </Key>
+    <Property Name="VeP_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID_Venda" Type="int" Nullable="false" />
+    <Property Name="ID_Produto" Type="int" Nullable="false" />
+    <Property Name="VeP_Qtd" Type="int" Nullable="false" />
+    <Property Name="VeP_PrecoVenda" Type="money" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Produto_Categoria">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+    <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="Cat_ID" />
+      </Principal>
+      <Dependent Role="Produto">
+        <PropertyRef Name="Pro_Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Produto_Fornecedor">
+    <End Role="Fornecedor" Type="Self.Fornecedor" Multiplicity="1" />
+    <End Role="Produto" Type="Self.Produto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornecedor">
+        <PropertyRef Name="For_ID" />
+      </Principal>
+      <Dependent Role="Produto">
+        <PropertyRef Name="Pro_Fornecedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Venda_Cliente">
+    <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+    <End Role="Venda" Type="Self.Venda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Cli_ID" />
+      </Principal>
+      <Dependent Role="Venda">
+        <PropertyRef Name="ID_Cli" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VendaProduto_Produto">
+    <End Role="Produto" Type="Self.Produto" Multiplicity="1" />
+    <End Role="VendaProduto" Type="Self.VendaProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="Pro_ID" />
+      </Principal>
+      <Dependent Role="VendaProduto">
+        <PropertyRef Name="ID_Produto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VendaProduto_Venda">
+    <End Role="Venda" Type="Self.Venda" Multiplicity="1" />
+    <End Role="VendaProduto" Type="Self.VendaProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venda">
+        <PropertyRef Name="Ven_ID" />
+      </Principal>
+      <Dependent Role="VendaProduto">
+        <PropertyRef Name="ID_Venda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LojaProdutosModelStoreContainer">
+    <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fornecedor" EntityType="Self.Fornecedor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Produto" EntityType="Self.Produto" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Venda" EntityType="Self.Venda" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="VendaProduto" EntityType="Self.VendaProduto" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Produto_Categoria" Association="Self.FK_Produto_Categoria">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Produto" EntitySet="Produto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Produto_Fornecedor" Association="Self.FK_Produto_Fornecedor">
+      <End Role="Fornecedor" EntitySet="Fornecedor" />
+      <End Role="Produto" EntitySet="Produto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Venda_Cliente" Association="Self.FK_Venda_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Venda" EntitySet="Venda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VendaProduto_Produto" Association="Self.FK_VendaProduto_Produto">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="VendaProduto" EntitySet="VendaProduto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VendaProduto_Venda" Association="Self.FK_VendaProduto_Venda">
+      <End Role="Venda" EntitySet="Venda" />
+      <End Role="VendaProduto" EntitySet="VendaProduto" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

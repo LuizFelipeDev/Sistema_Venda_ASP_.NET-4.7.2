@@ -1,0 +1,43 @@
+﻿@model TrabBimestral.MODEL.Cliente
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cli_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cli_Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cli_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cli_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cli_CPF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cli_CPF)
+        </dd>
+
+    </dl>
+</div>
+<p>
+
+    @Html.ActionLink("Voltar", "Index")  |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Cli_ID })
+</p>

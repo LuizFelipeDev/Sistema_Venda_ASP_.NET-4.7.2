@@ -1,0 +1,32 @@
+﻿@model TrabBimestral.MODEL.Categoria
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Delete</h2>
+
+<h3>Tem certeza que deseja apagar essa informação?</h3>
+<div>
+    <h4>Categoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cat_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cat_Nome)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            @Html.ActionLink("Voltar", "Index")  |
+            <input type="submit" value="Delete" class="btn btn-default" />
+        </div>
+    }
+</div>

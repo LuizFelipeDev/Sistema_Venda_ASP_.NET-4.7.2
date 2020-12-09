@@ -1,0 +1,234 @@
+﻿@model TrabBimestral.VIEW.Models.VendaView
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Venda</h4>
+    <hr />
+    @if (ViewBag.VendaCriada != null)
+    {
+
+        <input type="hidden" id="Venda" name="Venda" value="@ViewBag.VendaCriada" class="form-control" />
+    }
+
+
+    <div class="jumbotron">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ven_ID, "Número da Compra", htmlAttributes: new { @class = "control-label col-md-2", })
+            <div class="col-md-10">
+                <label class="control-label">@ViewBag.VendaCriada</label>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Nome, "Nome do Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+
+                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorTotal, "Valor Total(R$):", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <label class="control-label">@ViewBag.ValorTotal</label>
+            </div>
+        </div>
+    </div>
+
+
+
+    <div id="Detalhes" type="hidden" class="jumbotron">
+        <div class="form-group">
+            @Html.LabelFor(model => model.oProduto, "Produto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.oProduto, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.VeP_Qtd, "Quantidade", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.VeP_Qtd, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-success" id="add">
+                Adicionar Produto
+            </button>
+        </div>
+        <div class="form-group">
+            <table class="table table-bordered" id="tabela">
+                <thead>
+                    <tr>
+                        <th>Produto</th>
+                        <th>Preco</th>
+                        <th>Categoria</th>
+                        <th>Fornecedor</th>
+                        <th>Qtd</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (ViewBag.ListaProdutos != null)
+                    {
+                        foreach (var item in ViewBag.ListaProdutos)
+                        {
+                            <tr>
+                                <th>
+                                    @item.Produto
+                                </th>
+                                <th>
+                                    @item.Preco
+                                </th>
+                                <th>
+                                    @item.Categoria
+                                </th>
+                                <th>
+                                    @item.Fornecedor
+                                </th>
+                                <th>
+                                    @item.Qtd
+                                </th>
+                                <th>
+                                    <input type="hidden" value="@item.idVendaProduto" />
+                                    <button class="btn btn-danger RemoverProduto" value="@item.idVendaProduto">
+                                        Remover
+                                    </button>
+                                </th>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+            <input type="submit" class="btn btn-success" id="finalizar" value="Finalizar Edição" />
+        </div>
+    </div>
+
+
+
+
+    @Html.HiddenFor(model => model.Pro_ID)
+    @Html.Hidden("Pro_ID")
+
+
+    @Html.HiddenFor(model => model.Ven_Fechada)
+    @Html.Hidden("Ven_Fechada")
+
+    @Html.Hidden("Ven_ID")
+
+    @Html.Hidden("ID_Cli")
+
+    @Html.HiddenFor(model => model.idExcluirProduto)
+    @Html.Hidden("idExcluirProduto")
+
+    @Html.HiddenFor(model => model.finalizarEdicao)
+    @Html.Hidden("finalizarEdicao")
+
+</div>
+}
+
+<div>
+    @Html.ActionLink("Voltar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script>
+
+        $(function () {
+            $("#Nome").autocomplete({
+                source: '@Url.Action("AutoCompleteCliente", "Venda")',
+                minLength: 1,
+                focus: function (event, ui) {
+
+                },
+                response: function (event, ui) {
+
+                },
+                change: function (event, ui) {
+
+                },
+                select: function (event, ui) {
+                    $(this).val(ui.item.Cli_Nome);
+                    $("#ID_Cli").val(ui.item.Cli_ID)
+
+                    return false;
+                },
+
+                create: function (event, ui) {
+                    $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                        return $('<li>').append('<a>' + item.Cli_ID + "-" + item.Cli_Nome).appendTo(ul);
+                    };
+                }
+
+            });
+        });
+
+        $(function () {
+             $("#oProduto").autocomplete({
+                source: '@Url.Action("AutoCompleteProduto", "Produto")',
+                minLength: 1,
+                focus: function (event, ui) {
+
+                },
+                response: function (event, ui) {
+
+                },
+                change: function (event, ui) {
+
+                },
+                select: function (event, ui) {
+                    $(this).val(ui.item.Pro_Nome);
+                    $("#Pro_ID").val(ui.item.Pro_ID);
+                    return false;
+                },
+
+                create: function (event, ui) {
+                    $(this).data('ui-autocomplete')._renderItem = function (ul, item) {
+                        return $('<li>').append('<a>' + item.Pro_Nome).appendTo(ul);
+                    };
+                }
+
+            });
+        });
+
+
+
+
+        $(document).ready(function () {
+            $("#oProduto").val("");
+            $("#VeP_Qtd").val("");
+            $("#idExcluirProduto").val(0);
+            var venda = $("#Venda").val();
+            $("#Ven_ID").val(venda);
+            $("#finalizarEdicao").val(false);
+
+
+        })
+
+        $("#finalizar").click(function () {
+            $("#Ven_Fechada").val(true);
+            $("#finalizarEdicao").val(true);
+        })
+
+        $(".RemoverProduto").click(function () {
+            var idVenda = $(this).attr('value');
+            $("#idExcluirProduto").val(idVenda);
+        })
+
+
+
+    </script>
+
+}

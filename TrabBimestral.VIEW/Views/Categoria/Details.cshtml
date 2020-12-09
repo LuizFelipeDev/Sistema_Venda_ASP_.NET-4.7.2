@@ -1,0 +1,26 @@
+﻿@model TrabBimestral.MODEL.Categoria
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Categoria</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cat_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cat_Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Voltar", "Index")  |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Cat_ID })
+</p>

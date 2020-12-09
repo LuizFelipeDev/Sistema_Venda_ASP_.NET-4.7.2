@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LojaProdutosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="LojaProdutosEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categoria" EntityType="LojaProdutosModel.Categoria" />
+    <EntitySet Name="Cliente" EntityType="LojaProdutosModel.Cliente" />
+    <EntitySet Name="Fornecedor" EntityType="LojaProdutosModel.Fornecedor" />
+    <EntitySet Name="VendaProduto" EntityType="LojaProdutosModel.VendaProduto" />
+    <EntitySet Name="Venda" EntityType="LojaProdutosModel.Venda" />
+    <AssociationSet Name="FK_Venda_Cliente" Association="LojaProdutosModel.FK_Venda_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Venda" EntitySet="Venda" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VendaProduto_Venda" Association="LojaProdutosModel.FK_VendaProduto_Venda">
+      <End Role="Venda" EntitySet="Venda" />
+      <End Role="VendaProduto" EntitySet="VendaProduto" />
+    </AssociationSet>
+    <EntitySet Name="Produto" EntityType="LojaProdutosModel.Produto" />
+    <AssociationSet Name="FK_Produto_Categoria" Association="LojaProdutosModel.FK_Produto_Categoria">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Produto" EntitySet="Produto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Produto_Fornecedor" Association="LojaProdutosModel.FK_Produto_Fornecedor">
+      <End Role="Fornecedor" EntitySet="Fornecedor" />
+      <End Role="Produto" EntitySet="Produto" />
+    </AssociationSet>
+    <AssociationSet Name="FK_VendaProduto_Produto" Association="LojaProdutosModel.FK_VendaProduto_Produto">
+      <End Role="Produto" EntitySet="Produto" />
+      <End Role="VendaProduto" EntitySet="VendaProduto" />
+    </AssociationSet>
+    <EntitySet Name="Usuario" EntityType="LojaProdutosModel.Usuario" />
+  </EntityContainer>
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="Cat_ID" />
+    </Key>
+    <Property Name="Cat_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cat_Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Produto" Relationship="LojaProdutosModel.FK_Produto_Categoria" FromRole="Categoria" ToRole="Produto" />
+  </EntityType>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Cli_ID" />
+    </Key>
+    <Property Name="Cli_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Cli_Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Cli_Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Cli_CPF" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Venda" Relationship="LojaProdutosModel.FK_Venda_Cliente" FromRole="Cliente" ToRole="Venda" />
+  </EntityType>
+  <EntityType Name="Fornecedor">
+    <Key>
+      <PropertyRef Name="For_ID" />
+    </Key>
+    <Property Name="For_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="For_Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Produto" Relationship="LojaProdutosModel.FK_Produto_Fornecedor" FromRole="Fornecedor" ToRole="Produto" />
+  </EntityType>
+  <EntityType Name="VendaProduto">
+    <Key>
+      <PropertyRef Name="VeP_ID" />
+    </Key>
+    <Property Name="VeP_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_Venda" Type="Int32" Nullable="false" />
+    <Property Name="ID_Produto" Type="Int32" Nullable="false" />
+    <Property Name="VeP_Qtd" Type="Int32" Nullable="false" />
+    <Property Name="VeP_PrecoVenda" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="Venda" Relationship="LojaProdutosModel.FK_VendaProduto_Venda" FromRole="VendaProduto" ToRole="Venda" />
+    <NavigationProperty Name="Produto" Relationship="LojaProdutosModel.FK_VendaProduto_Produto" FromRole="VendaProduto" ToRole="Produto" />
+  </EntityType>
+  <EntityType Name="Venda">
+    <Key>
+      <PropertyRef Name="Ven_ID" />
+    </Key>
+    <Property Name="Ven_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID_Cli" Type="Int32" Nullable="false" />
+    <Property Name="Ven_Data" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Ven_Fechada" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Cliente" Relationship="LojaProdutosModel.FK_Venda_Cliente" FromRole="Venda" ToRole="Cliente" />
+    <NavigationProperty Name="VendaProduto" Relationship="LojaProdutosModel.FK_VendaProduto_Venda" FromRole="Venda" ToRole="VendaProduto" />
+  </EntityType>
+  <Association Name="FK_Venda_Cliente">
+    <End Type="LojaProdutosModel.Cliente" Role="Cliente" Multiplicity="1" />
+    <End Type="LojaProdutosModel.Venda" Role="Venda" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Cli_ID" />
+      </Principal>
+      <Dependent Role="Venda">
+        <PropertyRef Name="ID_Cli" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VendaProduto_Venda">
+    <End Type="LojaProdutosModel.Venda" Role="Venda" Multiplicity="1" />
+    <End Type="LojaProdutosModel.VendaProduto" Role="VendaProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Venda">
+        <PropertyRef Name="Ven_ID" />
+      </Principal>
+      <Dependent Role="VendaProduto">
+        <PropertyRef Name="ID_Venda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Produto">
+    <Key>
+      <PropertyRef Name="Pro_ID" />
+    </Key>
+    <Property Name="Pro_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Pro_Nome" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Pro_Categoria" Type="Int32" Nullable="false" />
+    <Property Name="Pro_Fornecedor" Type="Int32" Nullable="false" />
+    <Property Name="Pro_Preco" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+    <NavigationProperty Name="Categoria" Relationship="LojaProdutosModel.FK_Produto_Categoria" FromRole="Produto" ToRole="Categoria" />
+    <NavigationProperty Name="Fornecedor" Relationship="LojaProdutosModel.FK_Produto_Fornecedor" FromRole="Produto" ToRole="Fornecedor" />
+    <NavigationProperty Name="VendaProduto" Relationship="LojaProdutosModel.FK_VendaProduto_Produto" FromRole="Produto" ToRole="VendaProduto" />
+  </EntityType>
+  <Association Name="FK_Produto_Categoria">
+    <End Type="LojaProdutosModel.Categoria" Role="Categoria" Multiplicity="1" />
+    <End Type="LojaProdutosModel.Produto" Role="Produto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="Cat_ID" />
+      </Principal>
+      <Dependent Role="Produto">
+        <PropertyRef Name="Pro_Categoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Produto_Fornecedor">
+    <End Type="LojaProdutosModel.Fornecedor" Role="Fornecedor" Multiplicity="1" />
+    <End Type="LojaProdutosModel.Produto" Role="Produto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fornecedor">
+        <PropertyRef Name="For_ID" />
+      </Principal>
+      <Dependent Role="Produto">
+        <PropertyRef Name="Pro_Fornecedor" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_VendaProduto_Produto">
+    <End Type="LojaProdutosModel.Produto" Role="Produto" Multiplicity="1" />
+    <End Type="LojaProdutosModel.VendaProduto" Role="VendaProduto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Produto">
+        <PropertyRef Name="Pro_ID" />
+      </Principal>
+      <Dependent Role="VendaProduto">
+        <PropertyRef Name="ID_Produto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Usuario">
+    <Key>
+      <PropertyRef Name="Usu_ID" />
+    </Key>
+    <Property Name="Usu_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Usu_Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Usu_Senha" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Usu_Admin" Type="Boolean" Nullable="false" />
+  </EntityType>
+</Schema>

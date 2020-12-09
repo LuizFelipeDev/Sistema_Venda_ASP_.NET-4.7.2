@@ -1,0 +1,48 @@
+﻿@model TrabBimestral.MODEL.Cliente
+
+@{
+    ViewBag.Title = "Deletar";
+}
+
+<h2>Deletar</h2>
+
+<h3>Tem certeza que deseja apagar essa informação?</h3>
+<div>
+    <h4>Cliente</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cli_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cli_Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cli_Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cli_Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cli_CPF)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cli_CPF)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions no-color">
+            @Html.ActionLink("Voltar", "Index")  |
+            <input type="submit" value="Deletar" class="btn btn-default" />
+        </div>
+    }
+</div>

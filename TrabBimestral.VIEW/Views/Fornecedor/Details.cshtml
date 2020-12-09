@@ -1,0 +1,26 @@
+﻿@model TrabBimestral.MODEL.Fornecedor
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes</h2>
+
+<div>
+    <h4>Fornecedor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.For_Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.For_Nome)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Voltar", "Index")  |
+    @Html.ActionLink("Editar", "Edit", new { id = Model.For_ID })
+</p>

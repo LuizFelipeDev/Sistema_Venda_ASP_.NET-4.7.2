@@ -1,0 +1,12 @@
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\bin\Debug\TrabBimestral.MODEL.dll.config
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\bin\Debug\TrabBimestral.MODEL.dll
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\bin\Debug\TrabBimestral.MODEL.pdb
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\bin\Debug\EntityFramework.dll
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\bin\Debug\EntityFramework.xml
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\obj\Debug\TrabBimestral.MODEL.csprojAssemblyReference.cache
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\obj\Debug\TrabBimestral.MODEL.csproj.CoreCompileInputs.cache
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\obj\Debug\TrabBimestral.MODEL.csproj.CopyComplete
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\obj\Debug\TrabBimestral.MODEL.dll
+C:\Users\luizf\Desktop\Trabalhos\ASPBimestral\TrabBimestral\TrabBimestral.MODEL\obj\Debug\TrabBimestral.MODEL.pdb
